@@ -1,20 +1,26 @@
 package com.example.practise3_Alisher.service;
 
+import com.example.practise3_Alisher.repository.RepoB;
 import com.example.practise3_Alisher.repository.RepoC;
+import com.example.practise3_Alisher.repository.Repository;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 @Service
+@Slf4j
 public class ServiceC {
-
-    private ServiceB serviceB = new ServiceB();
-    private RepoC repoC = new RepoC();
-
+    private Repository repositoryC;
     @Value("class {ServiceC} method called")
     private String serviceCMsg;
+    @Autowired
+    public ServiceC(@Qualifier("repoC") Repository repositoryC) {
+        this.repositoryC = repositoryC;
+    }
+
     public void methodServiceC(){
-        System.out.println("class {ServiceC} method called");
-        serviceB.methodServiceB();
-        repoC.methodRepoC();
+        log.info(serviceCMsg);
+        repositoryC.method();
     }
 }
