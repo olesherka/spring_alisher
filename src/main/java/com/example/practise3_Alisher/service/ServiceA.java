@@ -17,6 +17,8 @@ public class ServiceA {
         this.repositoryA = repositoryA;
     }
 
+
+
     public void methodServiceA(){
         log.info(serviceAMsg);
         repositoryA.method();
