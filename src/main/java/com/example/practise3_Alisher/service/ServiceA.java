@@ -12,7 +12,7 @@ public class ServiceA {
 
     @Autowired
     public void methodServiceA(RepoA repoA){
-        log.info()
+        log.info(serviceAMsg);
         repoA.methodRepoA();
     }
 }
