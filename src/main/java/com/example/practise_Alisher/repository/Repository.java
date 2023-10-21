@@ -1,4 +1,4 @@
-package com.example.practise3_Alisher.repository;
+package com.example.practise_Alisher.repository;
 
 public interface Repository {
     void method();

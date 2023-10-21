@@ -1,12 +1,12 @@
-package com.example.practise3_Alisher;
+package com.example.practise_Alisher;
 
-import com.example.practise3_Alisher.repository.RepoA;
-import com.example.practise3_Alisher.repository.RepoB;
-import com.example.practise3_Alisher.repository.RepoC;
-import com.example.practise3_Alisher.service.ServiceA;
-import com.example.practise3_Alisher.service.ServiceB;
-import com.example.practise3_Alisher.service.ServiceC;
-import com.example.practise3_Alisher.service.ServiceD;
+import com.example.practise_Alisher.repository.RepoA;
+import com.example.practise_Alisher.repository.RepoB;
+import com.example.practise_Alisher.repository.RepoC;
+import com.example.practise_Alisher.service.ServiceA;
+import com.example.practise_Alisher.service.ServiceB;
+import com.example.practise_Alisher.service.ServiceC;
+import com.example.practise_Alisher.service.ServiceD;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.PropertySource;

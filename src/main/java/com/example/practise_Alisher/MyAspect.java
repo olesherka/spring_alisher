@@ -1,4 +1,4 @@
-/*package com.example.practise3_Alisher;
+package com.example.practise_Alisher;
 
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
@@ -8,20 +8,20 @@ import org.springframework.stereotype.Component;
 @Component
 @Slf4j
 public class MyAspect {
-    @Before("execution(* pan.eduard.Practice1.service.ServiceC.*(..))")
+    @Before("execution(* com.example.practise_Alisher.service.ServiceC.*(..))")
     public void logBefore(JoinPoint joinPoint) {
         log.info("logBefore called. Method name: " + joinPoint.getSignature().toShortString());
 
     }
-    @After("execution(* pan.eduard.Practice1.service.ServiceC.*(..))")
+    @After("execution(* com.example.practise_Alisher.service.ServiceC.*(..))")
     public void logAfter(JoinPoint joinPoint){
         log.info("After called. Method name: " + joinPoint.getSignature().toShortString());
     }
-    @Pointcut("execution(* pan.eduard.Practice1.service..*(..))")
+    @Pointcut("execution(* com.example.practise_Alisher.service..*(..))")
     protected void loggingOperation(){
 
     }
-    @Around("execution(* pan.eduard.Practice1.service.ServiceA.*(..))")
+    @Around("execution(* com.example.practise_Alisher.service..*(..))")
     public void logAround(JoinPoint joinPoint) {
         System.out.println("Around method getting called");
     }
@@ -37,4 +37,4 @@ public class MyAspect {
     }
 
 
-}*/
+}

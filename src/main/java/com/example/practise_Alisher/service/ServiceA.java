@@ -1,6 +1,6 @@
-package com.example.practise3_Alisher.service;
+package com.example.practise_Alisher.service;
 
-import com.example.practise3_Alisher.repository.Repository;
+import com.example.practise_Alisher.repository.Repository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

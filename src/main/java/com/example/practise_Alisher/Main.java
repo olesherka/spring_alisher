@@ -1,7 +1,6 @@
-package com.example.practise3_Alisher;
+package com.example.practise_Alisher;
 
-import com.example.practise3_Alisher.service.ServiceC;
-import com.example.practise3_Alisher.service.ServiceD;
+import com.example.practise_Alisher.service.ServiceD;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
