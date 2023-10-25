@@ -7,6 +7,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import javax.annotation.PreDestroy;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
 @Service
 @Slf4j
 public class ServiceD {
@@ -33,5 +38,12 @@ public class ServiceD {
         serviceC = null;
     }
 
+    @PreDestroy
+    public void preDestroy() throws IOException{
+        log.info("preDestroy method called");
+        if(serviceC ==null){
+            Files.deleteIfExists((Path) serviceC);
+        }
+    }
 
 }

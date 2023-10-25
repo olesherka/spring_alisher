@@ -8,33 +8,26 @@ import org.springframework.stereotype.Component;
 @Component
 @Slf4j
 public class MyAspect {
-    @Before("execution(* com.example.practise_Alisher.service.ServiceC.*(..))")
+    @Before("execution(* com.example.practise_Alisher.service.ServiceD.*(..))")
     public void logBefore(JoinPoint joinPoint) {
-        log.info("logBefore called. Method name: " + joinPoint.getSignature().toShortString());
+        log.info("logBefore called.");
 
     }
-    @After("execution(* com.example.practise_Alisher.service.ServiceC.*(..))")
+    @AfterThrowing("execution(* com.example.practise_Alisher.service..*(..))")
+    public void logAfterThrow(JoinPoint joinPoint){
+        log.info("logAfterThrowing called.");
+    }
+    @AfterReturning("execution(* com.example.practise_Alisher.service..*(..))")
+    public void logAfterReturn(JoinPoint joinPoint){
+        log.info("logAfterReturning called.");
+    }
+    @After("execution(* com.example.practise_Alisher.service..*(..))")
     public void logAfter(JoinPoint joinPoint){
-        log.info("After called. Method name: " + joinPoint.getSignature().toShortString());
+        log.info("logAfter called.");
     }
-    @Pointcut("execution(* com.example.practise_Alisher.service..*(..))")
-    protected void loggingOperation(){
 
-    }
     @Around("execution(* com.example.practise_Alisher.service..*(..))")
     public void logAround(JoinPoint joinPoint) {
-        System.out.println("Around method getting called");
+        log.info("Around method getting called");
     }
-
-    @AfterReturning("loggingOperation()")
-    public void afterReturning(JoinPoint joinPoint){
-        log.info("AfterReturning. Method name: " + joinPoint.getSignature().toShortString());
-    }
-
-    @AfterThrowing("loggingOperation()")
-    public void AfterReturning(JoinPoint joinPoint){
-        log.info("AfterReturning. Method name: " + joinPoint.getSignature().toShortString());
-    }
-
-
 }
