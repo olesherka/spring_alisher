@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.PropertySource;
 
 @org.springframework.context.annotation.Configuration
-@PropertySource(value = "classpath:application,properties")
+@PropertySource(value = "classpath:application.properties")
 public class Configuration {
     @Value("${value.from.application:default}:")
     private String value;
