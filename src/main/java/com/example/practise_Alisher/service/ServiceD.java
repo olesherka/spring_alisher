@@ -29,6 +29,9 @@ public class ServiceD {
         serviceC.methodServiceC();
     }
 
+    public void methodExceptionServiceD(){
+        throw new IllegalStateException();
+    }
     private void init(){
         System.out.println("method called before init");
         Assert.notNull(serviceC, "Service C not null");

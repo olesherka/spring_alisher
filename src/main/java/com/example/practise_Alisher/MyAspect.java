@@ -11,7 +11,6 @@ public class MyAspect {
     @Before("execution(* com.example.practise_Alisher.service.ServiceD.*(..))")
     public void logBefore(JoinPoint joinPoint) {
         log.info("logBefore called.");
-
     }
     @AfterThrowing("execution(* com.example.practise_Alisher.service..*(..))")
     public void logAfterThrow(JoinPoint joinPoint){
@@ -24,10 +23,5 @@ public class MyAspect {
     @After("execution(* com.example.practise_Alisher.service..*(..))")
     public void logAfter(JoinPoint joinPoint){
         log.info("logAfter called.");
-    }
-
-    @Around("execution(* com.example.practise_Alisher.service..*(..))")
-    public void logAround(JoinPoint joinPoint) {
-        log.info("Around method getting called");
     }
 }

@@ -11,5 +11,6 @@ public class Main {
 		ConfigurableApplicationContext ctx = SpringApplication.run(Main.class, args);
 		ServiceD serviceD = ctx.getBean("getServiceD", ServiceD.class);
 		serviceD.methodServiceD();
+		serviceD.methodExceptionServiceD();
 	}
 }
