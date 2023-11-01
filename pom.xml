@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>practise3_Alisher</artifactId>
+	<artifactId>practice_Alisher</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>practise3_Alisher</name>
 	<description>alisher practise3</description>
