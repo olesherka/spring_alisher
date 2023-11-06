@@ -1,4 +1,8 @@
 drop table if exists students;
+drop table if exists teachers;
+drop table if exists discipline;
+drop table if exists events;
+drop table if exists schedule_of_events;
 
 CREATE TABLE students(
     student_id INT PRIMARY KEY,

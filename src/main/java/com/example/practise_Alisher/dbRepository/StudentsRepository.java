@@ -14,8 +14,14 @@ import java.util.List;
 
 @Repository
 public class StudentsRepository {
-    @Autowired
+
     private DataSource dataSource;
+
+    @Autowired
+    public StudentsRepository(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
+
 
     public List<Students> getStudent() throws SQLException{
         Statement stmt = dataSource.getConnection().createStatement();

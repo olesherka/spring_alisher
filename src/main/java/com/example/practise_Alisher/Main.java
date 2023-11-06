@@ -1,6 +1,7 @@
 package com.example.practise_Alisher;
 
 import com.example.practise_Alisher.dbService.StudentsService;
+import com.example.practise_Alisher.dbService.TeachersService;
 import com.example.practise_Alisher.service.ServiceD;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
@@ -18,5 +19,8 @@ public class Main {
 
 		StudentsService studentsService = ctx.getBean("studentsService", StudentsService.class);
 		log.info("Student - {}", studentsService.getStudents());
+		TeachersService teachersService = ctx.getBean("teachersService", TeachersService.class);
+		log.info("Teacher -{}", teachersService.getTeachers());
+
 	}
 }
