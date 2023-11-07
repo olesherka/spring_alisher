@@ -1,5 +1,6 @@
 package com.example.practise_Alisher;
 
+import com.example.practise_Alisher.dbService.EventsService;
 import com.example.practise_Alisher.dbService.StudentsService;
 import com.example.practise_Alisher.dbService.TeachersService;
 import com.example.practise_Alisher.service.ServiceD;
@@ -18,9 +19,11 @@ public class Main {
 		serviceD.methodExceptionServiceD();*/
 
 		StudentsService studentsService = ctx.getBean("studentsService", StudentsService.class);
-		log.info("Student - {}", studentsService.getStudents());
+		log.info("Students - {}", studentsService.getStudents());
 		TeachersService teachersService = ctx.getBean("teachersService", TeachersService.class);
-		log.info("Teacher -{}", teachersService.getTeachers());
+		log.info("Teachers - {}", teachersService.getTeachers());
+		EventsService eventsService = ctx.getBean("eventsService", EventsService.class);
+		log.info("Events - {}", eventsService.getEvents());
 
 	}
 }

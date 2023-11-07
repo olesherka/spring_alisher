@@ -1,8 +1,7 @@
 package com.example.practise_Alisher.dbService;
 
-
-import com.example.practise_Alisher.dbModel.Students;
-import com.example.practise_Alisher.dbRepository.StudentsRepository;
+import com.example.practise_Alisher.dbModel.Events;;
+import com.example.practise_Alisher.dbRepository.EventsRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,15 +12,15 @@ import java.util.List;
 
 @Service
 @Slf4j
-public class StudentsService {
-    private StudentsRepository studentsRepository;
+public class EventsService {
+    private EventsRepository eventsRepository;
     @Autowired
-    public StudentsService(StudentsRepository studentsRepository){
-        this.studentsRepository = studentsRepository;
+    public EventsService(EventsRepository eventsRepository){
+        this.eventsRepository = eventsRepository;
     }
-    public List<Students> getStudents(){
+    public List<Events> getEvents(){
         try{
-            return studentsRepository.getStudent();
+            return eventsRepository.getEvent();
         }
         catch (SQLException e){
             log.error("error!!!");

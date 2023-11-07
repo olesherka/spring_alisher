@@ -20,8 +20,6 @@ public class Events {
     private int event_id;
     private String event_name;
     private LocalDate event_date;
-    @Id
     private int student_id;
-    @Id
     private int teacher_id;
 }
