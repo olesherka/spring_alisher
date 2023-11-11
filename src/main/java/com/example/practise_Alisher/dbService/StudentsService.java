@@ -28,4 +28,32 @@ public class StudentsService {
             return Collections.emptyList();
         }
     }
+
+    public void addStudent(Students student){
+        try{
+            studentsRepository.addStudent(student);
+        } catch (Exception e) {
+            log.error("Error add student: {}", e.getMessage(), e);
+        }
+    }
+
+    public Students findStudentById(int id){
+        try{
+            return studentsRepository.findStudentById(id);
+        }
+        catch (Exception e){
+            log.error("Error find student {}", e.getMessage(), e);
+            return null;
+        }
+    }
+
+    public Students findStudentByName(String name){
+        try{
+            return studentsRepository.findStudentByName(name);
+        }
+        catch (Exception e){
+            log.error("Error find student {}", e.getMessage(), e);
+            return null;
+        }
+    }
 }

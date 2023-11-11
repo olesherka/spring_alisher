@@ -1,4 +1,4 @@
-package com.example.practise_Alisher;
+package config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
