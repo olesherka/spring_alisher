@@ -52,7 +52,7 @@ public class StudentsService {
             return studentsRepository.findStudentByName(name);
         }
         catch (Exception e){
-            log.error("Error find student {}", e.getMessage(), e);
+            log.error("Error find student by name {}", e.getMessage(), e);
             return null;
         }
     }

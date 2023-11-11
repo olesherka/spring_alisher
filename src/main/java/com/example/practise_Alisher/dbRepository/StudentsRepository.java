@@ -65,6 +65,6 @@ public class StudentsRepository {
     }
 
     public Students findStudentByName(String student_name){
-        return jdbcTemplate.queryForObject("SELECT * FROM students WHERE student_name LIKE ?", this.mapRow(), student_name);
+        return jdbcTemplate.queryForObject("SELECT * FROM students WHERE student_name = ?", this.mapRow(), student_name);
     }
 }

@@ -20,6 +20,7 @@ public class Main {
 		StudentsService studentsService = ctx.getBean("studentsService", StudentsService.class);
 		log.info("Students - {}", studentsService.getStudents());
 		log.info("Student result after find - {}", studentsService.findStudentById(1));
+		log.info("Student result after find by name- {}", studentsService.findStudentByName("Alisher"));
 		TeachersService teachersService = ctx.getBean("teachersService", TeachersService.class);
 		log.info("Teachers - {}", teachersService.getTeachers());
 		log.info("Teacher result after find - {}", teachersService.findTeacherById(1));
