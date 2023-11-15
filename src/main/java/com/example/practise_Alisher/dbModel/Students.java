@@ -17,7 +17,7 @@ import javax.persistence.Table;
 @Table(name = "students")
 public class Students {
     @Id
-    private int student_id;
-    private String student_name;
-    private String student_lname;
+    private int id;
+    private String name;
+    private String lname;
 }

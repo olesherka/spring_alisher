@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
-import java.util.Collections;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -19,12 +19,18 @@ public class EventsService {
         this.eventsRepository = eventsRepository;
     }
     public List<Events> getEvents(){
-        try{
-            return eventsRepository.getEvent();
-        }
-        catch (SQLException e){
-            log.error("error!!!");
-            return Collections.emptyList();
-        }
+        return eventsRepository.getEvent();
+    }
+    public void addEvent(int id, String name, LocalDate date, int student_id, int teacher_id ){
+        eventsRepository.addEvent(id, name, date, student_id, teacher_id );
+    }
+    public void deleteEvent(int id){
+        eventsRepository.deleteEvent(id);
+    }
+    public Events findEventbyId(int id){
+        return eventsRepository.findEventById(id);
+    }
+    public Events findEventByName(String name){
+        return eventsRepository.findEventByName(name);
     }
 }

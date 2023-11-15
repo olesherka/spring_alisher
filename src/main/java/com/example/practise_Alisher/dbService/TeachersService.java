@@ -30,9 +30,9 @@ public class TeachersService {
         }
     }
 
-    public void addTeacher(Teachers teacher){
+    public void addTeacher(int id, String name, String lname){
         try{
-            teachersRepository.addTeacher(teacher);
+            teachersRepository.addTeacher(id, name, lname);
         } catch (Exception e) {
             log.error("Error add teacher: {}", e.getMessage(), e);
         }
@@ -47,4 +47,23 @@ public class TeachersService {
             return null;
         }
     }
+    public Teachers findTeacherByName(String name){
+        try{
+            return teachersRepository.findTeacherByName(name);
+        }
+        catch (Exception e){
+            log.error("Error find teacher {}", e.getMessage(), e);
+            return null;
+        }
+    }
+
+    public void deleteStudentById(int id){
+        try{
+            teachersRepository.deleteTeacher(id);
+        }
+        catch (Exception e){
+            log.error("Error delete teacher {}", e.getMessage(), e);
+        }
+    }
+
 }

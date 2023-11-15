@@ -17,9 +17,9 @@ import java.time.LocalDate;
 @Table(name = "events")
 public class Events {
     @Id
-    private int event_id;
-    private String event_name;
-    private LocalDate event_date;
-    private int student_id;
-    private int teacher_id;
+    private int id;
+    private String name;
+    private LocalDate date;
+    private int studentId;
+    private int teacherId;
 }

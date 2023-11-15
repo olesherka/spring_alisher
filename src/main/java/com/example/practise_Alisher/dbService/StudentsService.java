@@ -21,7 +21,7 @@ public class StudentsService {
     }
     public List<Students> getStudents(){
         try{
-            return studentsRepository.getStudent();
+            return studentsRepository.getStudents();
         }
         catch (SQLException e){
             log.error("error!!!");
@@ -29,9 +29,9 @@ public class StudentsService {
         }
     }
 
-    public void addStudent(Students student){
+    public void addStudent(int id, String name, String lname){
         try{
-            studentsRepository.addStudent(student);
+            studentsRepository.addStudent(id, name, lname);
         } catch (Exception e) {
             log.error("Error add student: {}", e.getMessage(), e);
         }
@@ -44,6 +44,15 @@ public class StudentsService {
         catch (Exception e){
             log.error("Error find student {}", e.getMessage(), e);
             return null;
+        }
+    }
+
+    public void deleteStudentById(int id){
+        try{
+            studentsRepository.deleteStudent(id);
+        }
+        catch (Exception e){
+            log.error("Error delete student {}", e.getMessage(), e);
         }
     }
 

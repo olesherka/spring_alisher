@@ -29,11 +29,11 @@ CREATE TABLE events(
     student_id int
 );
 
-CREATE TABLE schedule_of_events
+CREATE TABLE schedule
 (
     schedule_id   INT PRIMARY KEY,
     event_id      date,
     teacher_id    int,
     students_id   int,
-    discipline_id int
+    discipline_name varchar(20);
 );

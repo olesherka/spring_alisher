@@ -19,20 +19,20 @@ import java.util.List;
 public class TeachersRepository {
 
     private DataSource dataSource;
-    private JdbcTemplate jdbcTemplate;
+    //private JdbcTemplate jdbcTemplate;
 
     @Autowired
     public TeachersRepository(DataSource dataSource, JdbcTemplate jdbcTemplate) {
         this.dataSource = dataSource;
-        this.jdbcTemplate = jdbcTemplate;
+        //this.jdbcTemplate = jdbcTemplate;
     }
 
     public RowMapper<Teachers> mapRow() {
         return (rs, rowNum) -> {
             Teachers teacher = new Teachers();
-            teacher.setTeacher_id(rs.getInt("teacher_id"));
-            teacher.setTeacher_name(rs.getString("teacher_name"));
-            teacher.setTeacher_lname(rs.getString("teacher_lname"));
+            teacher.setId(rs.getInt("teacher_id"));
+            teacher.setName(rs.getString("teacher_name"));
+            teacher.setLname(rs.getString("teacher_lname"));
             return teacher;
         };
     }
@@ -42,25 +42,51 @@ public class TeachersRepository {
         ResultSet resultSet = stmt.executeQuery("SELECT * from teachers");
         List<Teachers> teachers = new ArrayList<>();
         while (resultSet.next()){
-            int teacher_id = resultSet.getInt("teacher_id");
-            String teacher_name = resultSet.getString("teacher_name");
-            String teacher_lname = resultSet.getString("teacher_name");
-            Teachers teacher = Teachers.builder().teacher_id(teacher_id).teacher_name(teacher_name).teacher_lname(teacher_lname).build();
+            int id = resultSet.getInt("teacher_id");
+            String name = resultSet.getString("teacher_name");
+            String lname = resultSet.getString("teacher_lname");
+            Teachers teacher = Teachers.builder().id(id).name(name).lname(lname).build();
             teachers.add(teacher);
         }
         return teachers;
     }
 
-    public void addTeacher(Teachers teacher) throws SQLException{
+    public void addTeacher(int id, String name, String lname) throws SQLException{
         PreparedStatement pstm = dataSource.getConnection().prepareStatement
                 ("INSERT INTO teachers(teacher_id, teacher_name, teacher_lname) VALUES (?,?,?)");
-        pstm.setInt(1,teacher.getTeacher_id());
-        pstm.setString(2, teacher.getTeacher_name());
-        pstm.setString(3, teacher.getTeacher_lname());
+        pstm.setInt(1, id);
+        pstm.setString(2, name);
+        pstm.setString(3, lname);
         pstm.execute();
     }
 
-    public Teachers findTeacherById(int id){
-        return jdbcTemplate.queryForObject("SELECT * FROM teachers WHERE teacher_id = ?", this.mapRow(), id);
+    public Teachers findTeacherById(int id) throws SQLException {
+        //return jdbcTemplate.queryForObject("SELECT * FROM teachers WHERE teacher_id = ?", this.mapRow(), id);
+        Statement stmt = dataSource.getConnection().createStatement();
+        ResultSet resultSet = stmt.executeQuery("SELECT * FROM teachers WHERE teacher_id =" + id);
+        while (resultSet.next()){
+            String name = resultSet.getString("teacher_name");
+            String lname = resultSet.getString("teacher_lname");
+            Teachers teacher = Teachers.builder().id(id).name(name).lname(lname).build();
+            return teacher;
+        }
+        return Teachers.builder().build();
+    }
+
+    public Teachers findTeacherByName(String name) throws SQLException{
+        Statement stmt = dataSource.getConnection().createStatement();
+        ResultSet resultSet = stmt.executeQuery("SELECT * FROM teachers WHERE UPPER(teacher_name) = UPPER('" + name + "')");
+        while (resultSet.next()){
+            int id = resultSet.getInt("teacher_id");
+            String lname = resultSet.getString("teacher_lname");
+            Teachers teacher = Teachers.builder().id(id).name(name).lname(lname).build();
+            return teacher;
+        }
+        return Teachers.builder().build();
+    }
+    public void deleteTeacher(int id) throws SQLException{
+        String sql = "DELETE FROM teachers WHERE teacher_id = " + id;
+        PreparedStatement pstm = dataSource.getConnection().prepareStatement(sql);
+        pstm.execute();
     }
 }

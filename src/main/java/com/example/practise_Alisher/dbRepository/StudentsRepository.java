@@ -20,51 +20,67 @@ public class StudentsRepository {
 
     private DataSource dataSource;
 
-    private JdbcTemplate jdbcTemplate;
+    //private JdbcTemplate jdbcTemplate;
 
     @Autowired
     public StudentsRepository(DataSource dataSource, JdbcTemplate jdbcTemplate) {
         this.dataSource = dataSource;
-        this.jdbcTemplate = jdbcTemplate;
+        //this.jdbcTemplate = jdbcTemplate;
     }
 
-    public RowMapper<Students> mapRow() {
-        return (rs, rowNum) -> {
-            Students student = new Students();
-            student.setStudent_id(rs.getInt("student_id"));
-            student.setStudent_name(rs.getString("student_name"));
-            student.setStudent_lname(rs.getString("student_lname"));
-            return student;
-        };
-    }
-
-    public List<Students> getStudent() throws SQLException{
+    public List<Students> getStudents() throws SQLException{
         Statement stmt = dataSource.getConnection().createStatement();
         ResultSet resultSet = stmt.executeQuery("SELECT * from students");
         List<Students> students = new ArrayList<>();
         while (resultSet.next()){
-            int student_id = resultSet.getInt("student_id");
-            String student_name = resultSet.getString("student_name");
-            String student_lname = resultSet.getString("student_lname");
-            Students student = Students.builder().student_id(student_id).student_name(student_name).student_lname(student_lname).build();
+            int id = resultSet.getInt("student_id");
+            String name = resultSet.getString("student_name");
+            String lname = resultSet.getString("student_lname");
+            Students student = Students.builder().id(id).name(name).lname(lname).build();
             students.add(student);
         }
         return students;
     }
 
-    public void addStudent(Students student) throws SQLException{
+    public void addStudent(int id, String name, String lname) throws SQLException{
         PreparedStatement pstm = dataSource.getConnection().prepareStatement
                 ("INSERT INTO students(student_id, student_name, student_lname) VALUES (?,?,?)");
-        pstm.setInt(1,student.getStudent_id());
-        pstm.setString(2, student.getStudent_name());
-        pstm.setString(3, student.getStudent_lname());
+        pstm.setInt(1,id);
+        pstm.setString(2, name);
+        pstm.setString(3, lname);
         pstm.execute();
     }
-    public Students findStudentById(int id){
-        return jdbcTemplate.queryForObject("SELECT * FROM students WHERE student_id = ?", this.mapRow(), id);
+
+
+    public Students findStudentById(int id) throws SQLException{
+       // return jdbcTemplate.queryForObject("SELECT * FROM students WHERE student_id = ?", this.mapRow(), id);
+        Statement stmt = dataSource.getConnection().createStatement();
+        ResultSet resultSet = stmt.executeQuery("SELECT * FROM students WHERE student_id = " + id);
+        while (resultSet.next()){
+            String name = resultSet.getString("student_name");
+            String lname = resultSet.getString("student_lname");
+            Students student = Students.builder().id(id).name(name).lname(lname).build();
+            return student;
+        }
+        return Students.builder().build();
     }
 
-    public Students findStudentByName(String student_name){
-        return jdbcTemplate.queryForObject("SELECT * FROM students WHERE student_name = ?", this.mapRow(), student_name);
+    public Students findStudentByName(String name) throws SQLException{
+        //return jdbcTemplate.queryForObject("SELECT * FROM students WHERE UPPER(student_name) = UPPER(?)", this.mapRow(), student_name);
+        Statement stmt = dataSource.getConnection().createStatement();
+        //String sql = "SELECT * FROM students WHERE UPPER(student_name) = UPPER('" + name + "');";
+        ResultSet resultSet = stmt.executeQuery("SELECT * FROM students WHERE UPPER(student_name) = UPPER('" + name + "')");
+        while (resultSet.next()){
+            int id = resultSet.getInt("student_id");
+            String lname = resultSet.getString("student_lname");
+            Students student = Students.builder().id(id).name(name).lname(lname).build();
+            return student;
+        }
+        return Students.builder().build();
+    }
+    public void deleteStudent(int id) throws SQLException{
+        String sql = "DELETE FROM students WHERE student_id = " + id;
+        PreparedStatement pstm = dataSource.getConnection().prepareStatement(sql);
+        pstm.execute();
     }
 }

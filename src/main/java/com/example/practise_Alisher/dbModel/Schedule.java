@@ -1,6 +1,5 @@
 package com.example.practise_Alisher.dbModel;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,10 +13,12 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "teachers")
-public class Teachers {
+@Table(name = "schedule")
+public class Schedule {
     @Id
     private int id;
-    private String name;
-    private String lname;
+    private int eventId;
+    private int teacherId;
+    private int studentId;
+    private String disciplineName;
 }
