@@ -25,7 +25,6 @@ public class EventsRepository {
             Events event = new Events();
             event.setId(rs.getInt("event_id"));
             event.setName(rs.getString("event_name"));
-            event.setDate(rs.getDate("event_date").toLocalDate());
             event.setStudentId(rs.getInt("student_id"));
             event.setTeacherId(rs.getInt("teacher_id"));
             return event;
@@ -38,9 +37,9 @@ public class EventsRepository {
         return events;
     }
 
-    public void addEvent(int id, String name, LocalDate date, int student_id, int teacher_id ){
-        jdbcTemplate.update("INSERT INTO events (event_id, event_name, event_date, student_id, teacher_id) " +
-                "VALUES (?,?,?,?,?)", id, name, date, student_id, teacher_id);
+    public void addEvent(int id, String name, int student_id, int teacher_id ){
+        jdbcTemplate.update("INSERT INTO events (event_id, event_name, student_id, teacher_id) " +
+                "VALUES (?,?,?,?,?)", id, name, student_id, teacher_id);
     }
 
     public boolean deleteEvent(int id){

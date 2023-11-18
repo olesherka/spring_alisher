@@ -21,8 +21,8 @@ public class EventsService {
     public List<Events> getEvents(){
         return eventsRepository.getEvent();
     }
-    public void addEvent(int id, String name, LocalDate date, int student_id, int teacher_id ){
-        eventsRepository.addEvent(id, name, date, student_id, teacher_id );
+    public void addEvent(int id, String name, int student_id, int teacher_id ){
+        eventsRepository.addEvent(id, name, student_id, teacher_id );
     }
     public void deleteEvent(int id){
         eventsRepository.deleteEvent(id);

@@ -19,7 +19,6 @@ public class Events {
     @Id
     private int id;
     private String name;
-    private LocalDate date;
     private int studentId;
     private int teacherId;
 }

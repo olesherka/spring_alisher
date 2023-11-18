@@ -1,6 +1,7 @@
 package com.example.practise_Alisher;
 
 import com.example.practise_Alisher.dbService.EventsService;
+import com.example.practise_Alisher.dbService.ScheduleService;
 import com.example.practise_Alisher.dbService.StudentsService;
 import com.example.practise_Alisher.dbService.TeachersService;
 import lombok.extern.slf4j.Slf4j;
@@ -37,6 +38,8 @@ public class Main {
 		log.info("Teachers - {}", teachersService.getTeachers());
 		EventsService eventsService = ctx.getBean("eventsService", EventsService.class);
 		log.info("Events - {}", eventsService.getEvents());
+		ScheduleService scheduleService = ctx.getBean("scheduleService", ScheduleService.class);
+		log.info("Schedule - {}", scheduleService.getSchedule());
 	}
 }
 
