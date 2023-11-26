@@ -1,24 +1,41 @@
 package com.example.practise_Alisher.dbRepository;
 
-import com.example.practise_Alisher.dbModel.Students;
 import com.example.practise_Alisher.dbModel.Teachers;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.sql.DataSource;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class TeachersRepository {
+public interface TeachersRepository extends JpaRepository<Teachers, Long> {
+    Teachers findTeacherByNameContainingIgnoreCase(String name);
 
-    private DataSource dataSource;
+    @Query("SELECT t FROM Teachers t WHERE LOWER(t.name) = LOWER(:name)")
+    Teachers findByName(@Param("name") String name);
+    @Transactional
+    void deleteById(int id);
+
+    @Modifying
+    @Transactional
+    @Query(value = "INSERT INTO teachers(teacher_id, teacher_name, teacher_lname, event_id) VALUES (?,?,?,?)", nativeQuery = true)
+    void insertTeacher(int id, String name, String lname, int event_id);
+
+    @Query(value = "SELECT * FROM teachers t", nativeQuery = true)
+    List<Teachers> getAllTeachersNative();
+
+    @Query(value = "SELECT t FROM Teachers t WHERE t.id = :id")
+    Teachers findById(@Param("id") int id);
+}
+
+
+
+
+
+    /*private DataSource dataSource;
     //private JdbcTemplate jdbcTemplate;
 
     @Autowired
@@ -89,4 +106,4 @@ public class TeachersRepository {
         PreparedStatement pstm = dataSource.getConnection().prepareStatement(sql);
         pstm.execute();
     }
-}
+}*/

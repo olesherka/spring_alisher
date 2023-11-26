@@ -1,4 +1,4 @@
-package com.example.practise_Alisher.dbRepository;
+/*package com.example.practise_Alisher.dbRepository;
 
 import com.example.practise_Alisher.dbModel.Events;
 import com.example.practise_Alisher.dbModel.Schedule;
@@ -59,4 +59,4 @@ public class ScheduleRepository {
         String sql = "SELECT * FROM schedule WHERE name = ?";
         return jdbcTemplate.queryForObject(sql, new Object[]{name}, mapRow());
     }
-}
+}*/

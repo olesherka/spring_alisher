@@ -2,6 +2,7 @@ package com.example.practise_Alisher.dbService;
 
 import com.example.practise_Alisher.dbModel.Students;
 import com.example.practise_Alisher.dbModel.Teachers;
+import com.example.practise_Alisher.dbRepository.StudentsRepository;
 import com.example.practise_Alisher.dbRepository.TeachersRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,49 +22,22 @@ public class TeachersService {
         this.teachersRepository = teachersRepository;
     }
     public List<Teachers> getTeachers(){
-        try{
-            return teachersRepository.getTeacher();
-        }
-        catch (SQLException e){
-            log.error("error!!!");
-            return Collections.emptyList();
-        }
+        return teachersRepository.getAllTeachersNative();
     }
 
-    public void addTeacher(int id, String name, String lname){
-        try{
-            teachersRepository.addTeacher(id, name, lname);
-        } catch (Exception e) {
-            log.error("Error add teacher: {}", e.getMessage(), e);
-        }
+    public void addTeacher(int id, String name, String lname, int event_id){
+        teachersRepository.insertTeacher(id, name, lname, event_id);
     }
 
     public Teachers findTeacherById(int id){
-        try{
-            return teachersRepository.findTeacherById(id);
-        }
-        catch (Exception e){
-            log.error("Error find teacher {}", e.getMessage(), e);
-            return null;
-        }
+        return teachersRepository.findById(id);
     }
+
+    public void deleteTeacherById(int id){
+        teachersRepository.deleteById(id);
+    }
+
     public Teachers findTeacherByName(String name){
-        try{
-            return teachersRepository.findTeacherByName(name);
-        }
-        catch (Exception e){
-            log.error("Error find teacher {}", e.getMessage(), e);
-            return null;
-        }
+        return teachersRepository.findByName(name);
     }
-
-    public void deleteStudentById(int id){
-        try{
-            teachersRepository.deleteTeacher(id);
-        }
-        catch (Exception e){
-            log.error("Error delete teacher {}", e.getMessage(), e);
-        }
-    }
-
 }

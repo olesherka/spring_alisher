@@ -4,10 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+
+import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Set;
 
 @Data
 @Builder
@@ -17,8 +17,19 @@ import java.time.LocalDate;
 @Table(name = "events")
 public class Events {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="event_id")
     private int id;
+    @Column(name="event_name")
     private String name;
+    @Column(name="student_id")
     private int studentId;
+    @Column(name="teacher_id")
     private int teacherId;
+
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "event")
+    Set<Students> studentsSet;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "event")
+    Set<Teachers> teachersSet;
+
 }

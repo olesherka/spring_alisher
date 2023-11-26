@@ -1,4 +1,4 @@
-package com.example.practise_Alisher.dbService;
+/*package com.example.practise_Alisher.dbService;
 
 import com.example.practise_Alisher.dbModel.Events;;
 import com.example.practise_Alisher.dbModel.Schedule;
@@ -36,3 +36,4 @@ public class ScheduleService {
         return scheduleRepository.findScheduleByDisciplineName(name);
     }
 }
+*/

@@ -1,4 +1,4 @@
-package com.example.practise_Alisher.dbModel;
+/*package com.example.practise_Alisher.dbModel;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,4 +21,4 @@ public class Schedule {
     private int teacherId;
     private int studentId;
     private String disciplineName;
-}
+}*/

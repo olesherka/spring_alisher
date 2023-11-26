@@ -2,85 +2,33 @@ package com.example.practise_Alisher.dbRepository;
 
 
 import com.example.practise_Alisher.dbModel.Students;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.sql.DataSource;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class StudentsRepository {
+public interface StudentsRepository extends JpaRepository<Students, Long> {
+    Students findByNameContainingIgnoreCase(String name);
 
-    private DataSource dataSource;
+    @Query("SELECT s FROM Students s WHERE LOWER(s.name) = LOWER(:name)")
+    Students findByName(@Param("name") String name);
+    @Transactional
+    void deleteById(int id);
 
-    //private JdbcTemplate jdbcTemplate;
+    @Modifying
+    @Transactional
+    @Query(value = "INSERT INTO students(student_id, student_name, student_lname, event_id) VALUES (?,?,?,?)", nativeQuery = true)
+    void insertStudent(int id, String name, String lname, int event_id);
 
-    @Autowired
-    public StudentsRepository(DataSource dataSource, JdbcTemplate jdbcTemplate) {
-        this.dataSource = dataSource;
-        //this.jdbcTemplate = jdbcTemplate;
-    }
+    @Query(value = "SELECT * FROM students s", nativeQuery = true)
+    List<Students> getAllStudentsNative();
 
-    public List<Students> getStudents() throws SQLException{
-        Statement stmt = dataSource.getConnection().createStatement();
-        ResultSet resultSet = stmt.executeQuery("SELECT * from students");
-        List<Students> students = new ArrayList<>();
-        while (resultSet.next()){
-            int id = resultSet.getInt("student_id");
-            String name = resultSet.getString("student_name");
-            String lname = resultSet.getString("student_lname");
-            Students student = Students.builder().id(id).name(name).lname(lname).build();
-            students.add(student);
-        }
-        return students;
-    }
+    @Query(value = "SELECT s FROM Students s WHERE s.id = :id")
+    Students findById(@Param("id") int id);
 
-    public void addStudent(int id, String name, String lname) throws SQLException{
-        PreparedStatement pstm = dataSource.getConnection().prepareStatement
-                ("INSERT INTO students(student_id, student_name, student_lname) VALUES (?,?,?)");
-        pstm.setInt(1,id);
-        pstm.setString(2, name);
-        pstm.setString(3, lname);
-        pstm.execute();
-    }
-
-
-    public Students findStudentById(int id) throws SQLException{
-       // return jdbcTemplate.queryForObject("SELECT * FROM students WHERE student_id = ?", this.mapRow(), id);
-        Statement stmt = dataSource.getConnection().createStatement();
-        ResultSet resultSet = stmt.executeQuery("SELECT * FROM students WHERE student_id = " + id);
-        while (resultSet.next()){
-            String name = resultSet.getString("student_name");
-            String lname = resultSet.getString("student_lname");
-            Students student = Students.builder().id(id).name(name).lname(lname).build();
-            return student;
-        }
-        return Students.builder().build();
-    }
-
-    public Students findStudentByName(String name) throws SQLException{
-        //return jdbcTemplate.queryForObject("SELECT * FROM students WHERE UPPER(student_name) = UPPER(?)", this.mapRow(), student_name);
-        Statement stmt = dataSource.getConnection().createStatement();
-        //String sql = "SELECT * FROM students WHERE UPPER(student_name) = UPPER('" + name + "');";
-        ResultSet resultSet = stmt.executeQuery("SELECT * FROM students WHERE UPPER(student_name) = UPPER('" + name + "')");
-        while (resultSet.next()){
-            int id = resultSet.getInt("student_id");
-            String lname = resultSet.getString("student_lname");
-            Students student = Students.builder().id(id).name(name).lname(lname).build();
-            return student;
-        }
-        return Students.builder().build();
-    }
-    public void deleteStudent(int id) throws SQLException{
-        String sql = "DELETE FROM students WHERE student_id = " + id;
-        PreparedStatement pstm = dataSource.getConnection().prepareStatement(sql);
-        pstm.execute();
-    }
 }

@@ -1,60 +1,40 @@
 package com.example.practise_Alisher.dbRepository;
 
 import com.example.practise_Alisher.dbModel.Events;
+import com.example.practise_Alisher.dbModel.Students;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 
 @Repository
-public class EventsRepository {
+public interface EventsRepository extends JpaRepository<Events, Long> {
 
-    private JdbcTemplate jdbcTemplate;
+    Events findByNameContainingIgnoreCase(String name);
 
-    @Autowired
-    public EventsRepository(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
+    @Query("SELECT e FROM Events e WHERE LOWER(e.name) = LOWER(:name)")
+    Events findByName(@Param("name") String name);
+    @Transactional
+    void deleteById(int id);
 
-    public RowMapper<Events> mapRow() {
-        return (rs, rowNum) -> {
-            Events event = new Events();
-            event.setId(rs.getInt("event_id"));
-            event.setName(rs.getString("event_name"));
-            event.setStudentId(rs.getInt("student_id"));
-            event.setTeacherId(rs.getInt("teacher_id"));
-            return event;
-        };
-    }
+    @Modifying
+    @Transactional
+    @Query(value = "INSERT INTO events(event_id, event_name, student_id, teacher_id) VALUES (?,?,?,?)", nativeQuery = true)
+    void insertEvent(int id, String name, int student_id, int teacher_id);
 
-    public List<Events> getEvent(){
-        String sql = "SELECT * from events";
-        List<Events> events = jdbcTemplate.query(sql, this.mapRow());
-        return events;
-    }
+    @Query(value = "SELECT * FROM students s", nativeQuery = true)
+    List<Events> getAllEventsNative();
 
-    public void addEvent(int id, String name, int student_id, int teacher_id ){
-        jdbcTemplate.update("INSERT INTO events (event_id, event_name, student_id, teacher_id) " +
-                "VALUES (?,?,?,?,?)", id, name, student_id, teacher_id);
-    }
+    @Query(value = "SELECT e FROM Events e WHERE e.id = :id")
+    Events findById(@Param("id") int id);
 
-    public boolean deleteEvent(int id){
-        String sql = "DELETE FROM events WHERE event_id = ?";
-        Object[] args = new Object[]{id};
-        return jdbcTemplate.update(sql, args) == 1;
-    }
-
-    public Events findEventById(int id) {
-        String sql = "SELECT * FROM events WHERE id = ?";
-        return jdbcTemplate.queryForObject(sql, new Object[]{id}, mapRow());
-    }
-
-    public Events findEventByName(String name) {
-        String sql = "SELECT * FROM events WHERE name = ?";
-        return jdbcTemplate.queryForObject(sql, new Object[]{name}, mapRow());
-    }
 }
