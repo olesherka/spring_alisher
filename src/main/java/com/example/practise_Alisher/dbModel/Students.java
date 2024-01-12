@@ -1,10 +1,7 @@
 package com.example.practise_Alisher.dbModel;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -13,7 +10,40 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity
 @Table(name = "students")
+@ToString
 public class Students {
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setLname(String lname) {
+        this.lname = lname;
+    }
+
+    public void setEvent(Events event) {
+        this.event = event;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getLname() {
+        return lname;
+    }
+
+    public Events getEvent() {
+        return event;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="student_id")

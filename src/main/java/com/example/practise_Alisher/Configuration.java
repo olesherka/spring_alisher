@@ -10,8 +10,13 @@ import com.example.practise_Alisher.service.ServiceD;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 @org.springframework.context.annotation.Configuration
+
+@EnableScheduling
+@EnableAsync
 @PropertySource(value = "classpath:application.properties")
 public class Configuration {
     @Value("${value.from.application:default}:")

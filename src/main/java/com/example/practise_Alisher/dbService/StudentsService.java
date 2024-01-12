@@ -1,6 +1,7 @@
 package com.example.practise_Alisher.dbService;
 
 
+import com.example.practise_Alisher.dbModel.Events;
 import com.example.practise_Alisher.dbModel.Students;
 import com.example.practise_Alisher.dbRepository.StudentsRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -21,8 +22,13 @@ public class StudentsService {
             return studentsRepository.getAllStudentsNative();
     }
 
-    public void addStudent(int id, String name, String lname, int event_id){
-        studentsRepository.insertStudent(id, name, lname, event_id);
+    public Students addStudent(int id, String name, String lname, Events event){
+        Students student = new Students();
+        student.setId(id);
+        student.setName(name);
+        student.setLname(lname);
+        student.setEvent(event);
+        return studentsRepository.save(student);
     }
 
     public Students findStudentById(int id){

@@ -1,9 +1,6 @@
 package com.example.practise_Alisher.dbModel;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -15,7 +12,24 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name = "events")
+@ToString
 public class Events {
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getStudentId() {
+        return studentId;
+    }
+
+    public int getTeacherId() {
+        return teacherId;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="event_id")
