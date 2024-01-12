@@ -13,7 +13,7 @@ import javax.persistence.*;
 @ToString
 public class Teachers {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY )
+    //@GeneratedValue(strategy = GenerationType.IDENTITY )
     @Column(name="teacher_id")
     private int id;
     @Column(name="teacher_name")

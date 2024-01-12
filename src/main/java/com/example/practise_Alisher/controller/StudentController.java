@@ -24,14 +24,14 @@ public class StudentController {
         return studentsService.getStudents();
     }
 
-    @GetMapping("updateStudent/{id}")
+    @GetMapping("findStudent/{id}")
     public Students getStudentById(@PathVariable int id){
         return studentsService.findStudentById(id);
     }
 
     @PostMapping("addStudent/")
     public ResponseEntity<Students> addStudent(@RequestBody Students student){
-        Students newStudent = studentsService.addStudent(student.getId(), student.getName(), student.getLname(), student.getEvent());
+        Students newStudent = studentsService.addStudent(student);
         return ResponseEntity.ok(newStudent);
     }
 

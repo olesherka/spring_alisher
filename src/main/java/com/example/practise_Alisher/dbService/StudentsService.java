@@ -22,12 +22,7 @@ public class StudentsService {
             return studentsRepository.getAllStudentsNative();
     }
 
-    public Students addStudent(int id, String name, String lname, Events event){
-        Students student = new Students();
-        student.setId(id);
-        student.setName(name);
-        student.setLname(lname);
-        student.setEvent(event);
+    public Students addStudent(Students student){
         return studentsRepository.save(student);
     }
 

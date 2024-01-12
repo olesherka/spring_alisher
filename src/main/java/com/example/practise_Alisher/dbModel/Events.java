@@ -31,7 +31,7 @@ public class Events {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="event_id")
     private int id;
     @Column(name="event_name")

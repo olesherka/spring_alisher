@@ -11,43 +11,14 @@ import javax.persistence.*;
 @Entity
 @Table(name = "students")
 @ToString
+@Getter
+@Setter
 public class Students {
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setLname(String lname) {
-        this.lname = lname;
-    }
-
-    public void setEvent(Events event) {
-        this.event = event;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getLname() {
-        return lname;
-    }
-
-    public Events getEvent() {
-        return event;
-    }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="student_id")
-    private int id;
+    private Integer id;
     @Column(name="student_name")
     private String name;
     @Column(name="student_lname")
